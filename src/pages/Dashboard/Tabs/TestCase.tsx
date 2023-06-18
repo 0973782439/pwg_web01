@@ -52,7 +52,7 @@ const TestCase: React.FC<Props> = ({ stateTestCase, setStateTestCase }) => {
                         <Pie {...configPie} />
                     </div>
                 </Col>
-                <Col style={{ boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.05)', padding: '12px', border: '1px solid #f0f0f0' }} span={12}>
+                <Col style={{ boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.05)', padding: '12px', border: '1px solid #f0f0f0' }} span={10}>
                     <div className='mb-[35px] w-full'>
                         <div className='mb-[35px]'>Custom Test Case</div>
 

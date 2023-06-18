@@ -12,7 +12,6 @@ const Requirements: React.FC<Props> = ({ stateRequirement, setStateRequirement }
     useEffect(() => {
         const json = RequirementAPI()
         json.then((res: any) => {
-            console.log(res.data)
             setStateRequirement(res.data)
         }).catch((error: any) => {
         })
@@ -54,7 +53,7 @@ const Requirements: React.FC<Props> = ({ stateRequirement, setStateRequirement }
                         <Pie {...configPie} />
                     </div>
                 </Col>
-                <Col style={{ boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.05)', padding: '12px', border: '1px solid #f0f0f0' }} span={12}>
+                <Col style={{ boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.05)', padding: '12px', border: '1px solid #f0f0f0' }} span={10}>
                     <div className='mb-[35px] w-full'>
                         <div className='mb-[35px]'>Custom Requirement</div>
 

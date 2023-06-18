@@ -71,7 +71,7 @@ const MenuNav = () => {
             width={250}
             breakpoint="lg"
             collapsedWidth="0"
-            style={{ background: '#002060', padding: '10px 20px' }}
+            style={{ background: '#002060', padding: '10px 20px', position:"fixed", left:0, top: 98, zIndex: 50, height: '100%'}}
         >
             <div className="demo-logo-vertical" />
             <Menu

@@ -65,20 +65,6 @@ const Batches: React.FC<Props> = ({ stateBatches, setStateBatches }) => {
         data,
         xField: 'dateStartedString',
         yField: 'totalRuns',
-        // xAxis: {
-        //     label: {
-        //         autoHide: true,
-        //         autoRotate: false,
-        //     },
-        // },
-        // meta: {
-        //     type: {
-        //         alias: '类别',
-        //     },
-        //     sales: {
-        //         alias: '销售额',
-        //     },
-        // },
         minColumnWidth: 20,
         maxColumnWidth: 20,
         scrollbar: {
@@ -151,7 +137,7 @@ const Batches: React.FC<Props> = ({ stateBatches, setStateBatches }) => {
                         <Column {...config} />
                     </div>
                 </Col>
-            </Row>
+            </Row>  
             <Row className='gap-4 flex-nowrap'>
                 <Col style={{ boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.05)', padding: '12px', border: '1px solid #f0f0f0' }} span={24}>
                     <div className='mb-[35px] w-full'>

@@ -10,10 +10,10 @@ const LayoutDefault: React.FC<Props> = ({ children }) => {
     return (
         <Layout className='w-[100%] h-[100vh]'>
             <Nav></Nav>
-            <Layout className='gap-5 mt-[98px]'>
+            <Layout className='gap-5 mt-[98px] w-full'>
                 <MenuNav></MenuNav>
-                <Layout>
-                    <Content style={{ padding: '10px 0 20px 0', }}>
+                <Layout style={{marginLeft: 270}}>
+                    <Content style={{ padding: '10px 0 20px 0'}}>
                         {children}
                     </Content>
                 </Layout>
@@ -23,4 +23,4 @@ const LayoutDefault: React.FC<Props> = ({ children }) => {
     );
 };
 
-export default LayoutDefault;
+export default LayoutDefault;   
