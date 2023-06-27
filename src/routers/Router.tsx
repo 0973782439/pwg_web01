@@ -6,7 +6,7 @@ import { ROUTER } from "../utils/path";
 import { LayoutAuthentication, LayoutDefault } from "../layouts";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Autentication/Login/Login";
-
+import UserStori from "../pages/UserStories/UserStori";
 
 // const ListEmployee = React.lazy(() => import("../pages/Employee/ListEmployee"));
 //được bảo vệ
@@ -24,14 +24,6 @@ function RejectedRoute() {
   return !isAuthenticated ? <Outlet /> : <Navigate to={ROUTER.dashboard} />;
 }
 const routersPublic = [
-  // {
-  //   path: "",
-  //   element: (
-  //     <LayoutDefault>
-  //       <Dashboard></Dashboard>
-  //     </LayoutDefault>
-  //   ),
-  // },
   {
     path: "",
     element: <ProtectedRoute></ProtectedRoute>,
@@ -42,6 +34,38 @@ const routersPublic = [
           <LayoutDefault>
             <Suspense fallback={<div>Loading...</div>}>
               <Dashboard />
+            </Suspense>
+          </LayoutDefault>
+        ),
+      },
+    ],
+  },
+  {
+    path: "",
+    element: <ProtectedRoute></ProtectedRoute>,
+    children: [
+      {
+        path: ROUTER.release,
+        element: (
+          <LayoutDefault>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Dashboard />
+            </Suspense>
+          </LayoutDefault>
+        ),
+      },
+    ],
+  },
+  {
+    path: "",
+    element: <ProtectedRoute></ProtectedRoute>,
+    children: [
+      {
+        path: ROUTER.requirement,
+        element: (
+          <LayoutDefault>
+            <Suspense fallback={<div>Loading...</div>}>
+              <UserStori />
             </Suspense>
           </LayoutDefault>
         ),
@@ -62,10 +86,6 @@ const routersPublic = [
       },
     ],
   },
-  // {
-  //   path: "*",
-  //   element: <NotFound></NotFound>,
-  // },
 ];
 const routersPrivate = [{}];
 export { routersPublic, routersPrivate };

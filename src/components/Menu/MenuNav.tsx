@@ -1,6 +1,8 @@
 import React from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
+import { Link } from 'react-router-dom';
+import { ROUTER } from '../../utils/path';
 const { Sider } = Layout;
 
 const items = [
@@ -11,18 +13,19 @@ const items = [
     },
     {
         key: '2',
-        icon: <VideoCameraOutlined />,
-        label: 'Dashboard',
+        icon: <img src="http://pinnacle-portal.server2div3.pgtest.co/static/media/dashboard.786a8c2274ee8940910310798245e069.svg" alt="" />,
+        label: <Link to={ROUTER.dashboard} >Dashboard</Link>,
     },
     {
         key: '3',
-        icon: <UploadOutlined />,
-        label: 'Release',
+        icon: <img src="http://pinnacle-portal.server2div3.pgtest.co/static/media/release.e73f11c543d0ed37d45c7d609da5385c.svg" alt="" />,
+        label: <Link to={ROUTER.release} >Release</Link>,
     },
     {
         key: '4',
-        icon: <UploadOutlined />,
-        label: 'User Stories',
+        icon: <img src="http://pinnacle-portal.server2div3.pgtest.co/static/media/user-story.8d6afdd4eff1c8678ed4c7709620e340.svg" alt="" />,
+        label: <Link to={ROUTER.requirement} >User Stories</Link>,
+
     },
     {
         key: '5',

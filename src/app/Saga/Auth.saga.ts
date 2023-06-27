@@ -5,15 +5,15 @@ import { ILogIn } from "../../interfaces/index";
 import { RESPONSE_STATUS_SUCCESS } from "../../utils/httpResponseCode";
 import { message } from "antd";
 import { Login } from "../../api/auth.api";
+import { setInfoUserLocal } from "../../utils/token";
 function* handleLogIn(value: ILogIn) {
     try {
         const { data, status } = yield call(Login, value);
-        console.log(data, status)
         if (status === RESPONSE_STATUS_SUCCESS) {
             message.success("Login success")
+            setInfoUserLocal(data?.user)
             yield delay(500);
             yield put(AuthActions.loginSucces());
-
         }
     } catch (error: any) {
         yield delay(500);

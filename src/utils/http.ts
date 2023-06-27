@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { getAccesTokenLST, setAccesTokenLST } from "./token";
+import { getAccesTokenLST, setAccesTokenLST, setInfoUserLocal } from "./token";
 import { PATH_API, APIUrl } from "./path";
 
 class Http {
@@ -31,7 +31,9 @@ class Http {
                 const { url } = response.config;
                 if (url === PATH_API.login) {
                     this.accesToken = response.data.token;
+                    console.log(response.data.user)
                     setAccesTokenLST(this.accesToken);
+                    setInfoUserLocal(response.data.user);
                 }
                 return response;
             },

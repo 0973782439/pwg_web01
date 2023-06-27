@@ -1,0 +1,31 @@
+.requirement-grid-view__modal .ant-btn-primary{
+    background-color: #002060;
+} 
+.custom_select>.ant-select-selector{
+    color: rgb(93, 170, 214) !important;
+}
+.custom_text_input.ant-input, .custom_text_input{
+    color: rgb(93, 170, 214) !important;
+}
+.custom_label .ant-form-item-label > label{
+    min-width: 100px;   
+}
+.workflow__border-right{
+    border: 0.5px solid #e6e6e6;
+    flex: 0 1!important;
+    margin-right: 25px;
+    transform: rotate(90deg);
+    width: 100%;
+}
+.ant-collapse-content-box canvas{
+    height: 216px !important;
+}
+.selected-row:hover td{
+    background-color: #002060 !important;
+    color: white;
+}
+.ant-table-cell{
+    padding: 8px !important;
+    cursor: pointer;
+}
+//40294
