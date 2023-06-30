@@ -35,3 +35,12 @@
 .selected-row:hover {
     color: black;
 }
+.ant-tree-node-content-wrapper{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.ant-tree-icon__customize{
+    display: flex !important;
+    align-items: center !important;
+}

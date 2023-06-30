@@ -5,7 +5,7 @@ import {Card, Row, Col, Progress} from 'antd'
 import { GetMiniDashboardAPI } from '../../../api/requirement.api';
 
 interface Props{
-  idSelectedRow?: number
+  idSelectedRow: number|string
 }
 const MiniDashboard:React.FC<Props> = ({idSelectedRow}) => {
 

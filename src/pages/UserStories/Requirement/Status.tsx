@@ -4,7 +4,7 @@ import type { CollapseProps } from 'antd';
 import { Pie } from '@ant-design/plots';
 import { GetExecutionStatusAPI, GetIssueStatusAPI } from '../../../api/requirement.api';
 interface Props {
-    idSelectedRow?: number
+    idSelectedRow: number|string
 }
 const Status: React.FC<Props> = ({ idSelectedRow }) => {
 

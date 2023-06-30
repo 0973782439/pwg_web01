@@ -28,4 +28,22 @@
     padding: 8px !important;
     cursor: pointer;
 }
+.ant-table-column-title{
+    color: #8c8c8c;
+}
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not(:disabled).attachment__add__button:hover {
+    background-color: #002060;
+}
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not(:disabled):hover {
+    background-color: white;
+}
+.ant-btn ~ .ant-btn-sm{
+    background-color: #002060;
+}
+.ant-image{
+    width: 100%;
+    height: 500px;
+}
+// .ant-btn{
+// }
 //40294

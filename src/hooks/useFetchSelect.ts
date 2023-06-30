@@ -14,7 +14,7 @@ const useFetchSelect = (func: any) => {
       } catch (error) {}
     };
     fetchData();
-  }, []);
+  }, [setData]);
   return [data, setData];
 };
 

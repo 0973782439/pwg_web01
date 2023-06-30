@@ -2,8 +2,9 @@ import React from 'react';
 import {Card, Tabs} from 'antd'
 import type { TabsProps } from 'antd'
 import History from './History';
+import ActivityAttachments from './ActivityAttachments';
 interface Props{
-    idSelectedRow?: number
+    idSelectedRow: number|string
 }
 const Activity:React.FC<Props> = ({idSelectedRow}) => {
     const items: TabsProps['items'] = [
@@ -15,12 +16,12 @@ const Activity:React.FC<Props> = ({idSelectedRow}) => {
         {
             key: '2',
             label: `Manage Test Case Coverage`,
-            children: <History></History>,
+            children: <History idSelectedRow={idSelectedRow}></History>,
         },
         {
             key: '3',
             label: `Attachments`,
-            children: <History></History>,
+            children: <ActivityAttachments idSelectedRow={idSelectedRow}></ActivityAttachments>,
         },
     ];
     return (

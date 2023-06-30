@@ -4,11 +4,13 @@ import { PATH_API } from "../utils/path";
 
 export const GetRequirementGridChartAPI = () =>
     http.get(PATH_API.get_requirement_grid_chart);
+export const GetRequirementFolderChartAPI = (search? :string) =>
+    http.get(`${PATH_API.get_requirement_folder_chart}?searchString=${search}`);
 export const GetRequirementDetailAPI = (id: any) =>
     http.get(`${PATH_API.get_requirement_detail}?id=${id}`);
 export const GetRequirementTypeAPI = () =>
     http.get(PATH_API.get_requirement_type);
-export const GetIsoClassification = () =>
+export const GetIsoClassificationAPI = () =>
     http.get(PATH_API.get_iso_classification);
 export const GetSubClassificationAPI = (value: string) =>
     http.get(`${PATH_API.get_sub_classification}?isoClassificationDescription=${value}`);
@@ -24,3 +26,5 @@ export const GetExecutionStatusAPI = (idRequirement:any) =>
     http.get(`${PATH_API.get_execution_status}?id=${idRequirement}`);
 export const GetHistoriesAPI = (idRequirement:any) =>
     http.get(`${PATH_API.get_histories}?id=${idRequirement}`);
+export const UpdateRequirementAPI = (obj_update:any) =>
+    http.post(PATH_API.update_requirement, obj_update);

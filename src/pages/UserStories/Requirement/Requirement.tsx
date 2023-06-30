@@ -3,25 +3,26 @@ import { Card, Col, Modal, Form, message, Button, Input} from 'antd';
 import { useForm } from "antd/lib/form/Form";
 import "./Requirement.scss"
 import { RequirementUpdate } from '../Requirement';
-import useFetchSelect from '../../../hooks/useFetchSelect';
-import { CreateRequirementAPI, DeleteRequirementAPI, GetIsoClassification, GetRequirementDetailAPI, GetRequirementTypeAPI, GetSubClassificationAPI } from '../../../api/requirement.api';
+import { CreateRequirementAPI, DeleteRequirementAPI, GetIsoClassificationAPI, GetRequirementDetailAPI, GetRequirementTypeAPI, GetSubClassificationAPI } from '../../../api/requirement.api';
 import { BusinessImportanceAPI } from '../../../api/business.api';
 import { IRequirementDetail, ISubClassification, IUser } from '../../../interfaces';
 import { getInfoUserLocal } from '../../../utils/token';
 import { GetNewId } from '../../../api/common.api';
 interface Props{
     GetRequirementGridChart: () => void
-    idSelectedRow?: number
+    GetRequirementFolderChart: () => void
+    idSelectedRow: number|string
 }
 
-const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) => {
+const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart, GetRequirementFolderChart}) => {
     const [form] = useForm();
+    const [formAdd] = useForm();
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
-    // render select
-    const [requirementType] = useFetchSelect(GetRequirementTypeAPI());
-    const [isoClassification] = useFetchSelect(GetIsoClassification());
-    const [businessImportance] = useFetchSelect(BusinessImportanceAPI());
+    // state render select
+    const [requirementType, setRequirementType ] = useState<any>()
+    const [businessImportance, setBusinessImportance ] = useState<any>()
+    const [isoClassification, setIsoClassification ] = useState<any>()
     const [subClassification, setSubClassification]= useState<ISubClassification[]>()
     // data requirement để render Update
     const [requirementDetail, setRequirementDetail] = useState<IRequirementDetail>()
@@ -53,10 +54,11 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
         const requirementId = idSelectedRow
         const obj_delete_requirement = {...value, entityId: requirementId}
             
-        const delete_requirement =DeleteRequirementAPI(obj_delete_requirement)
+        const delete_requirement = DeleteRequirementAPI(obj_delete_requirement)
         delete_requirement.then((res:any)=>{
             message.success(res.data)
             GetRequirementGridChart()
+            form.resetFields()
             setOpenModalDelete(false)
         }).catch((error:any)=>{
             message.error(error)
@@ -82,7 +84,7 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
         })
     }
     /**
-     * Hàm gọi api lấy ra để select của option SubClassification
+     * Hàm gọi api lấy ra để select của các option 
      */
     const GetSubClassification = (value: string) => {
         const json = GetSubClassificationAPI(value);
@@ -93,21 +95,58 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
             message.error(error.message)
         })
     }
-    // 
+    const GetRequirementType = () => {
+        const json = GetRequirementTypeAPI();
+        json.then((res:any)=> {
+            setRequirementType(res.data)
+        })
+        .catch((error:any)=> {
+            message.error(error.message)
+        })
+    }
+    const GetBusinessImportance = () => {
+        const json = BusinessImportanceAPI();
+        json.then((res:any)=> {
+            setBusinessImportance(res.data)
+        })
+        .catch((error:any)=> {
+            message.error(error.message)
+        })
+    }
+    const GetIsoClassification = () => {
+        const json = GetIsoClassificationAPI();
+        json.then((res:any)=> {
+            setIsoClassification(res.data)
+        })
+        .catch((error:any)=> {
+            message.error(error.message)
+        })
+    }
+    /**
+     * Chọn 1 requirement khác thì render lại
+     */
     useEffect(() => {
         if(idSelectedRow){
             GetRequirementDetail(idSelectedRow)
         }
     },[idSelectedRow])
-    // lấy ra user trên local storage
+    /**
+     * lấy ra user trên local storage và render select option
+     */
     useEffect(() => {
+        GetIsoClassification()
+        GetBusinessImportance()
+        GetRequirementType()
         const user = getInfoUserLocal()
         const obj_user = JSON.parse(user);
         setUser(obj_user)
     },[])
-    // 
+    /**
+     * Mở modal thêm requirement
+     */
     const handleOpenModalRequirement = () =>{
         setOpenModalCreate(true)
+        formAdd.resetFields()
         const get_new_id_requirement = GetNewId(4)
         get_new_id_requirement.then((res:any)=>{
             setNewId(res.data.newId)
@@ -116,7 +155,8 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
     }
     return (
         <Col className='flex-shrink' span={12}>
-            <Form form={form} onFinish={handleCreateRequirement}>
+            <Form form={form} 
+            >
                 <Card
                     title="Requirement"
                     bordered={false} 
@@ -133,6 +173,9 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
                     }
                 >
                     <RequirementUpdate 
+                        GetRequirementDetail={GetRequirementDetail}
+                        GetRequirementGridChart={GetRequirementGridChart}
+                        GetRequirementFolderChart={GetRequirementFolderChart}
                         idSelectedRow= {idSelectedRow}
                         requirementDetail={requirementDetail}
                         subClassification={subClassification}
@@ -141,6 +184,7 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
                         businessImportance={businessImportance}
                     />
                 </Card>
+                {/* Create */}
                 <Modal className='requirement-grid-view__modal'
                     title={<div className='font-semibold text-lg text-[#002060]'>Create new requirement</div>}
                     centered
@@ -150,8 +194,12 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
                     onCancel={() => setOpenModalCreate(false)}
                     width={785}
                 >
-                    <Form onFinish={handleCreateRequirement}>
+                    <Form form={formAdd} onFinish={handleCreateRequirement}>
                         <RequirementUpdate
+                            idSelectedRow= {idSelectedRow}
+                            GetRequirementDetail={GetRequirementDetail}
+                            GetRequirementGridChart={GetRequirementGridChart}
+                            GetRequirementFolderChart={GetRequirementFolderChart}
                             user={user}
                             newId={newId}
                             subClassification={subClassification}
@@ -165,6 +213,7 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
                         </div>
                     </Form>
                 </Modal>
+                {/* Delete */}
                 <Modal className='requirement-grid-view__modal'
                     title={<>
                         <h1 className='font-semibold text-lg text-[#002060] text-center'>Delete Requirement</h1>
@@ -177,12 +226,12 @@ const Requirement:React.FC<Props> = ({idSelectedRow, GetRequirementGridChart}) =
                     onCancel={() => setOpenModalDelete(false)}
                     width={520}
                 >
-                    <Form onFinish={handleDeleteRequirement}>
+                    <Form form={form} onFinish={handleDeleteRequirement}>
                         <Form.Item name='deleteReason'>
                             <Input />
                         </Form.Item>
                         <div className='flex justify-end'>
-                            <Button onClick={()=>setOpenModalDelete(false)}>Cancel</Button>
+                            <Button onClick={()=>{form.resetFields();setOpenModalDelete(false)}}>Cancel</Button>
                             <Button className='bg-[#002060] text-white' htmlType="submit">Ok</Button>
                         </div>
                     </Form>

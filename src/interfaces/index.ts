@@ -9,3 +9,4 @@ export type { IRequirementDetail } from "./IRequirementDetail";
 export type { IUser } from "./IUser";
 export type { ICreateRequirement } from "./ICreateRequirement";
 export type { IHistories } from "./IHistories";
+export type { IAttachment } from "./IAttachment";
